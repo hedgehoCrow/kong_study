@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    image: node:latest
+    hostname: app
+    volumes:
+      - ./app.js:/src/app.js
+    working_dir: /src
+    command: sh -c "npm i express && node app.js"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      - NGINX_PORT=8080
